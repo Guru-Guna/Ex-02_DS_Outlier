@@ -27,29 +27,29 @@ import pandas as pd
 df=pd.read_csv('weight.csv')
 df
 
-#removing non numerical columns
+removing non numerical columns
 df=df.drop("Gender",axis=1)
 print('After removing Non numeric columns:')
 df
 
-#graph to display outliers
+graph to display outliers
 df.boxplot()
 
-#calculating z scores to detect outliers
+calculating z scores to detect outliers
 import numpy as np
 from scipy import stats
 z=np.abs(stats.zscore(df))
 print(z)
 
-#removing outliers from weight
+removing outliers from weight
 df1=df.copy()
 df1=df1[(z<3).all(axis=1)]
 df1
 
-#checking if outliers are removed through graph
+checking if outliers are removed through graph
 df1.boxplot()
 
-#removing outliers from height
+removing outliers from height
 df2=df.copy()
 q1=df2.quantile(0.25)
 q3=df2.quantile(0.75)
@@ -57,13 +57,13 @@ IQR=q3-q1
 df_new=df2[((df2>=q1-1.5*IQR)&(df2<=q3+1.5*IQR)).all(axis=1)]
 df_new
 
-#checking if outliers are removed through graph
+checking if outliers are removed through graph
 df_new.boxplot()
 
-#final dataset
+final dataset
 df_new
 
-#saving data file
+saving data file
 df.to_csv('weight.csv', index=False)
 
 # OUTPUT:
